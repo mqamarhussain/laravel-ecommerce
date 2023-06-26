@@ -108,6 +108,11 @@ class Product extends Model
             ->orderBy('file_sort', 'asc');
     }
 
+    public function getImageAttribute(): string{
+        $iamge_name = ($this->firstMedia?->file_name)?:'default.jpg';
+        return asset('storage/images/products/'.$iamge_name);
+    }
+
     public function ratings(): HasMany
     {
         return $this->hasMany(Rating::class);

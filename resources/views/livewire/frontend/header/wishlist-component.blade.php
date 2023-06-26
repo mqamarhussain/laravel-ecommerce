@@ -1,3 +1,4 @@
-<ul>
-    <li><a href="{{ route('wishlist.index') }}"><i class="ti-heart"></i>({{ $wishlistCount }}) Wishlist</a></li>
-</ul>
+<a href="{{ route('wishlist.index') }}">
+    <i class="pe-7s-like"></i>
+    <div class="notification">{{ $wishlistCount }}</div>
+</a>

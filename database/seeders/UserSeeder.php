@@ -18,12 +18,12 @@ class UserSeeder extends Seeder
     {
         $userRole = Role::create(['name' => 'user']);
         $user = User::create([
-            'first_name' => 'Ali',
-            'last_name' => 'Al Qahtani',
-            'username' => 'ali',
-            'email' => 'ali@ali.com',
+            'first_name' => 'Qamar',
+            'last_name' => 'Hussain',
+            'username' => 'Qamar',
+            'email' => 'qamar@qamar.com',
             'phone' => '0505050500',
-            'password' => bcrypt('ali'),
+            'password' => bcrypt('password'),
             'email_verified_at' => Carbon::now(),
         ]);
         $user->assignRole('user');
@@ -41,6 +41,6 @@ class UserSeeder extends Seeder
         /*
          * Create 1000 fake users with their addresses (each user has one address).
          */
-        User::factory()->count(100)->hasAddresses(1)->create();
+        User::factory()->count(10)->hasAddresses(1)->create();
     }
 }

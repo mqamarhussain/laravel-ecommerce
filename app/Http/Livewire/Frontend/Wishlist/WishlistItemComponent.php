@@ -9,7 +9,8 @@ use Livewire\Component;
 class WishlistItemComponent extends Component
 {
     use LivewireAlert;
-    public string $item;
+
+    // protected $listeners = ['update_cart' => '$refresh', 'update_wishlist' => '$refresh'];
 
     public function moveToCart($rowId)
     {
@@ -25,8 +26,6 @@ class WishlistItemComponent extends Component
 
     public function render()
     {
-        return view('livewire.frontend.wishlist.wishlist-item-component', [
-            'wishlistItem' => Cart::instance('wishlist')->content()->get($this->item)
-        ]);
+        return view('livewire.frontend.wishlist.wishlist-item-component');
     }
 }

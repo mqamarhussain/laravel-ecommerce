@@ -16,19 +16,29 @@ class HomeController extends Controller
     {
         $coupon = Coupon::active()->public()->first();
 
-        $categories = Category::select('slug', 'cover', 'name')
+        $categories = Category::select('id', 'parent_id', 'slug', 'cover', 'name')
+            ->has('children')
+            ->with('children:id,parent_id,slug,cover,name', 'products', 'products.firstMedia')
             ->active()
             ->whereParentId(null)
-            ->limit(4)
             ->get();
+        $sub_categories = Category::select('id', 'parent_id', 'slug', 'cover', 'name')
+            ->has('products')
+            ->withCount('products')
+            ->with('products', 'products.firstMedia')
+            ->active()
+            ->whereNotNull('parent_id')
+            ->orderBy('products_count', 'desc')
+            ->get()
+            ->unique('parent_id');
 
-        return view('frontend.index', compact('categories', 'coupon'));
+        return view('corano-dark.frontend.index', compact('categories', 'coupon', 'sub_categories'));
     }
 
     public function search(Request $request): JsonResponse
     {
         $data = Product::select('slug', 'name')
-            ->where('name', 'LIKE', '%'.$request->productName. '%')
+            ->where('name', 'LIKE', '%' . $request->productName . '%')
             ->active()
             ->hasQuantity()
             ->activeCategory()

@@ -1,48 +1,110 @@
-<tr x-data="{ show: true }" x-show="show">
-    <td class="product-thumbnail">
-        <a href="{{ route('product.show', $cartItem->model->slug) }}">
-            @if($cartItem->model->firstMedia)
-                <img src="{{ asset('storage/images/products/' . $cartItem->model->firstMedia->file_name) }}"
-                     alt="{{ $cartItem->model->name }}" width="70"/>
-            @else
-                <img src="{{ asset('img/no-img.png') }}"
-                     alt="{{ $cartItem->model->name }}" width="70"/>
-            @endif
+<div>
+    <div class="row">
+        @if (Cart::instance('default')->count())
 
-        </a>
-    </td>
-    <td class="product-name">
-        <a href="#">{{ $cartItem->model->name }}</a>
-    </td>
-    <td class="product-price-cart">
-        <span class="amount" style="font-size: 16px;">${{ $cartItem->model->price }}</span>
-    </td>
-    <td class="product-quantity" style="font-size: 16px;">
-        <div class="d-flex align-items-center justify-content-between">
-            <span class="text-uppercase text-gray headings-font-family"></span>
-            <a wire:click.prevent="decreaseQuantity('{{ $cartItem->rowId }}')"
-                style="cursor: pointer;">
-                <i class="fas fa-caret-left"></i>
-            </a>
-            <span class="text-center">{{ $itemQuantity }}</span>
-            <a wire:click.prevent="increaseQuantity('{{ $cartItem->rowId }}', '{{ $cartItem->id }}')"
-                style="cursor: pointer;">
-                <i class="fas fa-caret-right"></i>
-            </a>
+            <div class="col-lg-12">
+                <div class="cart-table table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="pro-thumbnail">Thumbnail</th>
+                                <th class="pro-title">Product</th>
+                                <th class="pro-price">Price</th>
+                                <th class="pro-quantity">Quantity</th>
+                                <th class="pro-subtotal">Total</th>
+                                <th class="pro-remove">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Cart::instance('default')->content() as $index => $cart_item)
+                                <tr x-data="{ show: true }" x-show="show">
+                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
+                                                src="{{ $cart_item->model->image }}"
+                                                alt="{{ $cart_item->model->name }}" /></a>
+                                    </td>
+                                    <td class="pro-title"><a
+                                            href="{{ route('product.show', $cart_item->model->slug) }}">{{ $cart_item->model->name }}</a>
+                                    </td>
+                                    <td class="pro-price"><span>{{ $cart_item->price }}</span></td>
+                                    <td class="pro-quantity">
+                                        <div class="pro-qty"><input type="text" value="{{ $cart_item->qty }}"></div>
+                                    </td>
+                                    <td class="pro-subtotal">
+                                        <span>{{ $cart_item->model->price * $cart_item->qty }}</span>
+                                    </td>
+                                    <td class="pro-remove"><a href="#"
+                                            wire:click.prevent="removeFromCart('{{ $cart_item->rowId }}')"
+                                            x-on:click="show = false"><i class="fa fa-trash-o"></i></a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Cart Update Option -->
+                <div class="cart-update-option d-block d-md-flex justify-content-between">
+                    <div class="apply-coupon-wrapper">
+                        @if (!session()->has('coupon'))
+                            <form action="#" wire:submit.prevent="applyDiscount" method="post"
+                                class=" d-block d-md-flex">
+                                <input type="text" wire:model.defer="couponCode" placeholder="Enter Your Coupon Code"
+                                    required />
+                                <button type="submit" class="btn btn-sqr">Apply Coupon</button>
+                            </form>
+                        @else
+                            <button type="reset" class="btn btn-sqr" wire:click.prevent="removeCoupon()">Remove
+                                Coupon</button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 ml-auto">
+            <!-- Cart Calculation Area -->
+            <div class="cart-calculator-wrapper">
+                <div class="cart-calculate-items">
+                    <h6>Cart Totals</h6>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td>Sub Total</td>
+                                <td>{{ $cartSubTotal }}</td>
+                            </tr>
+                            @if ($cartShipping)
+                                <tr>
+                                    <td>Shipping</td>
+                                    <td>{{ $cartShipping }}</td>
+                                </tr>
+                            @endif
+                            @if ($cartTax)
+                                <tr>
+                                    <td>Tax</td>
+                                    <td>{{ $cartTax }}</td>
+                                </tr>
+                            @endif
+                            @if ($cartDiscount)
+                                <tr>
+                                    <td>Discount</td>
+                                    <td>{{ $cartDiscount }}</td>
+                                </tr>
+                            @endif
+                            <tr class="total">
+                                <td>Total</td>
+                                <td class="total-amount">{{ $cartTotal }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                @if (Cart::instance('default')->count())
+                    <livewire:frontend.button.proceed-checkout-button-component />
+                @endif
+            </div>
         </div>
-    </td>
-    <td>
-        <p class="mb-0">${{ ($cartItem->model->price) * ($cartItem->qty) }}</p>
-    </td>
-    <td>
-        <a wire:click.prevent="removeFromCart('{{ $cartItem->rowId }}')"
-           x-on:click="show = false"
-           style="cursor: pointer;">
-            <i class="fas fa-trash-alt text-muted"></i>
-        </a>
-    </td>
-</tr>
-
-
-
-
+    </div>
+@else
+    <div class="empty-cart">
+        <h3>Cart is empty</h3><br />
+        <a href="{{ route('shop.index') }}" class="btn btn-sqr">Go to shop</a>
+    </div>
+@endif
+</div>

@@ -1,15 +1,6 @@
-<div class="header-cart-4 furits-cart">
-
-    <a class="icon-cart" href="{{route('cart.index')}}">
-        <i class="ti-shopping-cart"></i>
-        <span>{{ $cartCount }}</span>
+<div>
+    <a class="icon-cart" href="{{ route('cart.index') }}">
+        <i class="pe-7s-shopbag"></i>
+        <div class="notification">{{ $cartCount }}</div>
     </a>
-
-{{--    <a class="icon-cart" href="{{route('cart.index')}}">--}}
-{{--        <span class="shop-count-furniture green">--}}
-{{--            {{ $cartCount }}--}}
-{{--        </span>--}}
-{{--        <i class="ti-shopping-cart"></i>--}}
-{{--    </a>--}}
-
 </div>

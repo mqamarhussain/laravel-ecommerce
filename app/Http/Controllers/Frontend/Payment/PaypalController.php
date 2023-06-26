@@ -31,7 +31,7 @@ class PaypalController extends Controller
             'cancelUrl' => $omniPay->getCancelUrl($order->id),
             'returnUrl' => $omniPay->getReturnUrl($order->id)
         ]);
-
+        // dd($response);
         if ($response->isRedirect()) {
             $response->redirect();
         }
@@ -102,14 +102,14 @@ class PaypalController extends Controller
         });
 
         // Send email with PDF invoice
-        $data = $order->toArray();
-        $data['currency_symbol'] = $order->currency == 'USD' ? '$' : $order->currency;
-        $pdf = PDF::loadView('layouts.invoice', $data);
-        $saved_file = storage_path('app/pdf/files/' . $data['ref_id'] . '.pdf');
-        $pdf->save($saved_file);
+        // $data = $order->toArray();
+        // $data['currency_symbol'] = $order->currency == 'USD' ? '$' : $order->currency;
+        // $pdf = PDF::loadView('layouts.invoice', $data);
+        // $saved_file = storage_path('app/pdf/files/' . $data['ref_id'] . '.pdf');
+        // $pdf->save($saved_file);
 
-        $user = User::find($order->user_id);
-        $user->notify(new OrderThanksNotification($order, $saved_file));
+        // $user = User::find($order->user_id);
+        // $user->notify(new OrderThanksNotification($order, $saved_file));
 
         toast('You have recent payment is successful with reference code: ' . $response->getTransactionReference(), 'success');
         return redirect()->route('home');

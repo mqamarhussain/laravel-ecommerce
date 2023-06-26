@@ -11,7 +11,7 @@ class ContactController extends Controller
 
     public function index()
     {
-        return view('frontend.contact.index');
+        return view('corano-dark.frontend.contact.index');
     }
 
     public function store(StoreContactRequest $request)

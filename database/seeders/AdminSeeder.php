@@ -18,6 +18,7 @@ class AdminSeeder extends Seeder
     {
         // gets all permissions via Gate::before rule; see AuthServiceProvider
         Role::create(['name' => 'admin']);
+        Role::create(['name' => 'user']);
 
         $admin = User::create([
             'first_name' => 'Admin',

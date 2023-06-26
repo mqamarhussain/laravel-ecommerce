@@ -66,3 +66,11 @@ function getNumbersOfCart(): Collection
         'total' => (float) $total,
     ]);
 }
+
+
+function active_theme(){
+    if (config('app.active_theme') == 'corano-dark') {
+        return 'corano-dark.';
+    }
+    return '';
+}

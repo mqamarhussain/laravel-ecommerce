@@ -38,7 +38,7 @@
                                 <div class="product-fruit-wrapper mb-60">
                                     <div class="product-fruit-img">
                                         @if($product->firstMedia)
-                                            <img src="{{ asset('storage/images/products/' . $product->firstMedia->file_name ) }}"
+                                            <img src="{{ $product->image }}"
                                                  alt="{{ $product->name }}">
                                         @else
                                             <img src="{{ asset('img/cartwhite.png' ) }}" alt="">
@@ -86,7 +86,7 @@
                                 <div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
                                     <div class="product-img list-img-width">
                                         @if($product->firstMedia)
-                                            <img src="{{ asset('storage/images/products/' . $product->firstMedia->file_name ) }}"
+                                            <img src="{{ $product->image }}"
                                                  alt="{{ $product->name }}" width="150">
                                         @else
                                             <img src="{{ asset('img/cartwhite.png' ) }}" alt="{{ $product->name }}" style="width: 100%;">

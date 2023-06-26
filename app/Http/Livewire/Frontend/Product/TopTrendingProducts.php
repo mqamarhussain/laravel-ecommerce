@@ -26,6 +26,7 @@ class TopTrendingProducts extends Component
     public function addToWishList($productId)
     {
         $product = Product::whereId($productId)->active()->hasQuantity()->activeCategory()->firstOrFail();
+        // dd($product);
         try {
             (new CartService())->addToList('wishlist', $product);
             $this->emit('update_wishlist');

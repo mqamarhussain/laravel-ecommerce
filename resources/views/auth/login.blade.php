@@ -1,70 +1,47 @@
-@extends('layouts.app')
+@extends('corano-dark.layouts.app')
 @section('title', 'Login')
 @section('content')
-    <div class="breadcrumb-area pt-5 pb-5" style="background-color: #09c6a2">
-        <div class="container">
-            <div class="breadcrumb-content text-center">
-                <h2>login</h2>
-                <ul>
-                    <li><a href="{{route('register')}}">register</a></li>
-                    <li> login </li>
-                </ul>
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fa fa-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Login</li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
+</div>
     <!-- login-area start -->
     <div id="login-form" class="register-area ptb-100">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
-                    <div class="login">
-                        <div class="login-form-container">
-                            <div class="form-group">
-                                <form action="{{ route('login') }}" method="POST">
-                                    @csrf
-                                    <div class="mb-4">
-                                        <label for="username">Username*</label>
-                                        <input type="text" name="username" value="{{ old('username') }}" placeholder="Username">
-                                        @error('username')<span class="text-danger">{{ $message }}</span>@enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="password">Password*</label>
-                                        <input id="pass" type="password" name="password" placeholder="password">
+                    <div class="contact-message m-5 p-5"> {{bcrypt('password')}}
+                        <h4 class="contact-title mb-2 text-center">Login to your account</h4>
+                        <form action="{{ route('login') }}" method="POST" class="contact-form">
+                            @csrf
+                                <div class="">
+                                    <input type="text" name="username" value="{{ old('username') }}" placeholder="Username" required>
+                                    @error('username')<span class="text-danger">{{ $message }}</span>@enderror                                </div>
+                                <div class="">
+                                    <input id="pass" type="password" name="password" placeholder="password" required>
                                         @error('password')<span class="text-danger">{{ $message }}</span>@enderror
+                                </div>
+                                <div>
+                                    <div class="contact-btn text-center">
+                                        <button class="btn btn-sqr" type="submit">Login</button>
                                     </div>
-                                    <label class="show">Show password</label>
-                                    <label class="hide"></label>
-                                    <div class="form-group row mb-0">
-                                        @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                {{ __('Forgot Your Password?') }}
-                                            </a>
-                                        @endif
-                                    </div>
-                                    <div class="button-box">
-                                        <button class="default-btn floatright">{{ __('Login') }}</button>
-                                    </div>
-                                    <div class="form-group mt-2">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
-                                        </label>
-                                    </div>
-                                    <div class="form-group mt-4 mb-0">
-                                        <a href="{{ route('social_login', 'facebook') }}" class="btn btn-block" style="background-color: #1877F2; color: #FFFFFF">
-                                            Login with Facebook
-                                        </a>
-{{--                                    <a href="{{ route('social_login', 'twitter') }}" class="btn btn-block" style="background-color: #1DA1F2; color: #FFFFFF">--}}
-{{--                                        Login with Twitter--}}
-{{--                                    </a>--}}
-{{--                                    <a href="{{ route('social_login', 'google') }}" class="btn btn-block" style="border-color: #1877F2; color: black">--}}
-{{--                                        Login with Google--}}
-{{--                                    </a>--}}
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <p class="form-messege text-danger"></p>
+                                </div>
+                        </form>
                     </div>
                 </div>
             </div>

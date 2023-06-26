@@ -24,7 +24,7 @@ class UserAddressFactory extends Factory
      */
     public function definition()
     {
-        $ksa   = Country::with('states')->whereId(194)->first();
+        $ksa   = Country::with('states')->first();
         $state = $ksa->states->random()->id;
         $city = City::whereStateId($state)->inRandomOrder()->first()->id;
 

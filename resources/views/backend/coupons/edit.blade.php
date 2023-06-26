@@ -72,14 +72,14 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="start_date">Start date</label>
-                            <input class="form-control" id="start_date" type="text" name="start_date" value="{{ old('start_date', $coupon->start_date ? $coupon->start_date->format('Y-m-d') : '') }}">
+                            <input class="form-control" id="start_date" type="text" name="start_date" value="{{ old('start_date', $coupon->start_date ? \Carbon\Carbon::parse($coupon->start_date)->format('Y-m-d') : '') }}">
                             @error('start_date')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="expire_date">Expire date</label>
-                            <input class="form-control" id="expire_date" type="text" name="expire_date" value="{{ old('expire_date', $coupon->expire_date ? $coupon->expire_date->format('Y-m-d') : '') }}">
+                            <input class="form-control" id="expire_date" type="text" name="expire_date" value="{{ old('expire_date', $coupon->expire_date ? \Carbon\Carbon::parse($coupon->expire_date)->format('Y-m-d') : '') }}">
                             @error('expire_date')<span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                     </div>

@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
     {
         if (app()->environment('local')) {
             $this->call([
-                WorldSeeder::class,
+                // WorldSeeder::class,
                 WorldStatusSeeder::class,
                 PermissionTableSeeder::class,
                 AdminSeeder::class,
                 SupervisorSeeder::class,
-                UserSeeder::class,
-                UserAddressSeeder::class,
+                // UserSeeder::class,
+                // UserAddressSeeder::class,
                 CategoriesTableSeeder::class,
                 TagsTableSeeder::class,
                 ProductsTableSeeder::class,
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
                 ShippingCompanySeeder::class,
                 PaymentMethodSeeder::class,
                 CouponSeeder::class,
-                OrderSeeder::class,
+                // OrderSeeder::class,
                 LinkSeeder::class,
             ]);
         }

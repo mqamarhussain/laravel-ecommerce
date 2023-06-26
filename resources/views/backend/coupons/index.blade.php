@@ -43,11 +43,11 @@
                             </a></td>
                         <td>{{ $coupon->type == 'fixed' ? '$' : '%' }}{{ $coupon->value }}</td>
                         <td>{{ $coupon->used_times . '/' . $coupon->use_times }}</td>
-                        <td>Start:  {{ $coupon->start_date != '' ? $coupon->start_date->format('Y-m-d') : '-' }}
+                        <td>Start:  {{ $coupon->start_date != '' ? \Carbon\Carbon::parse($coupon->start_date)->format('Y-m-d') : '-' }}
                             <br>
                             Expire:
                             <span class="text-danger">
-                                {{ $coupon->expire_date != '' ? $coupon->expire_date->format('Y-m-d') : '-' }}
+                                {{ $coupon->expire_date != '' ? \Carbon\Carbon::parse($coupon->expire_date)->format('Y-m-d') : '-' }}
                             </span>
                         </td>
                         <td>{{ $coupon->greater_than ?? '-' }}</td>
