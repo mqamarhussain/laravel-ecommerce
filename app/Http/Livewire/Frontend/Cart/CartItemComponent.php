@@ -29,10 +29,16 @@ class CartItemComponent extends Component
 
     public function mount()
     {
+        $this->refreshCart();
+    }
+
+    public function refreshCart()
+    {
         $this->cartSubTotal = getNumbersOfCart()->get('subtotal');
         $this->cartTotal = getNumbersOfCart()->get('total');
         $this->cartTax = getNumbersOfCart()->get('productTaxes');
         $this->cartDiscount = getNumbersOfCart()->get('discount');
+        $this->couponCode = getNumbersOfCart()->get('discountCode');
         $this->cartShipping = getNumbersOfCart()->get('shipping');
     }
 
@@ -52,11 +58,12 @@ class CartItemComponent extends Component
 
         if ($coupon->greater_than > getNumbersOfCart()->get('subtotal')) {
             $this->couponCode = '';
-            $this->alert('warning', 'Subtotal must greater than $' . $coupon->greater_than);
+            $this->alert('warning', 'Subtotal must greater than ' . currency_format($coupon->greater_than));
             return;
         }
 
-        $couponValue = $coupon->discount($this->cartSubTotal);
+        $couponValue = $coupon->type == 'fixed' ? $coupon->value : $this->cartSubTotal * $coupon->value / 100;
+
         if ($couponValue < 0) {
             $this->alert('error', 'product coupon is invalid');
             return;
@@ -117,7 +124,8 @@ class CartItemComponent extends Component
     public function removeFromCart($rowId)
     {
         $this->clearSession();
-        $this->emit('remove_from_cart', $rowId);
+        Cart::instance('default')->remove($rowId);
+        $this->emit('update_cart');
         $this->alert('success', 'Item removed from cart!');
     }
 

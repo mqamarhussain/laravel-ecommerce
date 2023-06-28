@@ -17,7 +17,7 @@
                         </thead>
                         <tbody>
                             @foreach (Cart::instance('default')->content() as $index => $cart_item)
-                                <tr x-data="{ show: true }" x-show="show">
+                                <tr>
                                     <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
                                                 src="{{ $cart_item->model->image }}"
                                                 alt="{{ $cart_item->model->name }}" /></a>
@@ -25,16 +25,27 @@
                                     <td class="pro-title"><a
                                             href="{{ route('product.show', $cart_item->model->slug) }}">{{ $cart_item->model->name }}</a>
                                     </td>
-                                    <td class="pro-price"><span>{{ $cart_item->price }}</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="pro-qty"><input type="text" value="{{ $cart_item->qty }}"></div>
+                                    <td class="pro-price"><span>{{ currency_format($cart_item->price) }}</span></td>
+                                    <td class="pro-quantity" >
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="text-uppercase text-gray headings-font-family"></span>
+                                            <a wire:click.prevent="decreaseQuantity('{{ $cart_item->rowId }}')"
+                                                style="cursor: pointer;">
+                                                <i class="fas fa-caret-left"></i>
+                                            </a>
+                                            <span class="text-center">{{ $cart_item->qty }}</span>
+                                            <a wire:click.prevent="increaseQuantity('{{ $cart_item->rowId }}', '{{ $cart_item->id }}')"
+                                                style="cursor: pointer;">
+                                                <i class="fas fa-caret-right"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                     <td class="pro-subtotal">
-                                        <span>{{ $cart_item->model->price * $cart_item->qty }}</span>
+                                        <span>{{ currency_format($cart_item->model->price * $cart_item->qty) }}</span>
                                     </td>
                                     <td class="pro-remove"><a href="#"
-                                            wire:click.prevent="removeFromCart('{{ $cart_item->rowId }}')"
-                                            x-on:click="show = false"><i class="fa fa-trash-o"></i></a></td>
+                                            wire:click.prevent="removeFromCart('{{ $cart_item->rowId }}')"><i
+                                                class="fa fa-trash-o"></i></a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -68,29 +79,29 @@
                         <table class="table">
                             <tr>
                                 <td>Sub Total</td>
-                                <td>{{ $cartSubTotal }}</td>
+                                <td>{{ currency_format($cartSubTotal) }}</td>
                             </tr>
                             @if ($cartShipping)
                                 <tr>
                                     <td>Shipping</td>
-                                    <td>{{ $cartShipping }}</td>
+                                    <td>{{ currency_format($cartShipping) }}</td>
                                 </tr>
                             @endif
                             @if ($cartTax)
                                 <tr>
                                     <td>Tax</td>
-                                    <td>{{ $cartTax }}</td>
+                                    <td>{{ currency_format($cartTax) }}</td>
                                 </tr>
                             @endif
-                            @if ($cartDiscount)
+                            @if ($couponCode)
                                 <tr>
-                                    <td>Discount</td>
-                                    <td>{{ $cartDiscount }}</td>
+                                    <td>Coupon Discount ({{$couponCode}})</td>
+                                    <td>{{ currency_format($cartDiscount) }}</td>
                                 </tr>
                             @endif
                             <tr class="total">
                                 <td>Total</td>
-                                <td class="total-amount">{{ $cartTotal }}</td>
+                                <td class="total-amount">{{ currency_format($cartTotal) }}</td>
                             </tr>
                         </table>
                     </div>
@@ -106,5 +117,5 @@
         <h3>Cart is empty</h3><br />
         <a href="{{ route('shop.index') }}" class="btn btn-sqr">Go to shop</a>
     </div>
-@endif
+    @endif
 </div>

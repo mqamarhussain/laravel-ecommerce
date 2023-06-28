@@ -44,7 +44,7 @@
                                         <input type="email" name="email" value="{{ old('email') }}" placeholder="Email *" required>
                                         @error('email')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="col-12">
                                         <input type="text" name="title" value="{{ old('title') }}" placeholder="Title *" required>
                                         @error('title')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>

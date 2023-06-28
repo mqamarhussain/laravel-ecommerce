@@ -2,7 +2,7 @@
 
 @section('content')
     @can('add-page')
-        <p><a href="{{ route('admin.pages.create') }}" class="btn btn-primary">Create New Page</a></p>
+        <p><a href="{{ route('admin.pages.create') }}" class="btn btn-primary">Create New Page/Post</a></p>
     @endcan
     <div class="card shadow bg-white">
         <table class="table table-hover">
@@ -10,6 +10,8 @@
             <tr>
                 <th>Title</th>
                 <th>Slug</th>
+                <th>Status</th>
+                <th>Type</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -19,6 +21,8 @@
                 <tr class="">
                     <td>{{ $page->title }}</td>
                     <td><a href="{{ route('admin.pages.show',$page->id ) }}">{{ $page->slug }}</a></td>
+                    <td>{{ $page->status?'Active':'Inactive' }}</td>
+                    <td>{{ $page->page_type }}</td>
 
                     @can('edit-page')
                         <td><a href="{{ route('admin.pages.edit',$page->id) }}"><i class="fa fa-edit"></i></a></td>

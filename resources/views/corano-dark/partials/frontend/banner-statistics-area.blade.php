@@ -5,7 +5,7 @@
                  <div class="col-sm-6">
                      <figure class="banner-statistics mt-20">
                          <a href="#">
-                             <img src="{{ asset('storage/images/categories/'.$global_category->cover) }} "
+                             <img src="{{ $global_category->image }} "
                                  alt="product banner">
                          </a>
                          <div class="banner-content text-right">

@@ -68,9 +68,16 @@ function getNumbersOfCart(): Collection
 }
 
 
-function active_theme(){
+function active_theme()
+{
     if (config('app.active_theme') == 'corano-dark') {
         return 'corano-dark.';
     }
     return '';
+}
+
+function currency_format($value)
+{
+    $amount = new NumberFormatter("en_UK", NumberFormatter::CURRENCY);
+    return $amount->formatCurrency($value, 'GBP');
 }

@@ -42,6 +42,11 @@ class Category extends Model
         return $this->attributes['status'] == 0 ? 'Inactive' : 'Active';
     }
 
+    public function getImageAttribute(): string{
+        $iamge_name = $this->cover?:'default.jpg';
+        return asset('storage/images/categories/'.$iamge_name);
+    }
+
     public function scopeActive($query)
     {
         return $query->whereStatus(true);

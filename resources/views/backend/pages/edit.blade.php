@@ -32,6 +32,16 @@
                     @error('status')<span class="text-danger">{{ $message }}</span>@enderror
                 </div>
 
+                <div class="col-6 form-group">
+                    <label for="page_type">Page Type</label>
+                    <select name="page_type" id="page_type" class="form-control">
+                        <option value="">---</option>
+                        <option value="page" {{ old('page_type', $page->page_type) == "page" ? 'selected' : null }}>Page</option>
+                        <option value="post" {{ old('page_type', $page->page_type) == "post" ? 'selected' : null }}>Post</option>
+                    </select>
+                    @error('page_type')<span class="text-danger">{{ $message }}</span>@enderror
+                </div>
+
                 <div class="col-lg-12 form-group">
                     <label for="body">Content</label>
                     <textarea name="content" class="form-control summernote">{{ old('content', $page->content) }}</textarea>

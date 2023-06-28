@@ -31,6 +31,7 @@ class PageRequest extends FormRequest
                     'slug' => ['required', 'string', 'max:255', 'unique:pages'],
                     'content' => ['required'],
                     'status' => ['required'],
+                    'page_type' => ['required'],
                 ];
             }
             case 'PUT':
@@ -41,6 +42,7 @@ class PageRequest extends FormRequest
                     'slug' => ['required', 'string', 'max:255', 'unique:pages,slug,'.$this->route()->page->id],
                     'content' => ['required'],
                     'status' => ['required'],
+                    'page_type' => ['required'],
                 ];
             }
             default: break;

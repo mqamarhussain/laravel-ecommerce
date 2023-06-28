@@ -49,7 +49,27 @@
                                                     @endforeach
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Contact us</a></li>
+
+                                            <li class=""><a href="#">Posts <i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown">
+                                                    @foreach ($posts_menu as $post)
+
+                                                    <li><a href="{{route('post.show', ['slug' => $post->slug])}}">{{ $post->title }}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+
+                                            <li class=""><a href="#">Pages <i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown">
+                                                    @foreach ($pages_menu as $page)
+
+                                                    <li><a href="{{route('page.show', ['slug' => $page->slug])}}">{{ $page->title }}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+
+
+                                            <li><a href="{{route('contact.index')}}">Contact us</a></li>
                                         </ul>
                                     </nav>
                                     <!-- main menu navbar end -->
@@ -149,7 +169,7 @@
                     <div class="col-12">
                         <div class="mobile-main-header">
                             <div class="mobile-logo">
-                                <a href="index.html">
+                                <a href="{{route('home')}}">
                                     <img src="{{ asset('frontend/corano-dark/assets/img/logo/logo-light.png') }}"
                                         alt="Brand Logo">
                                 </a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\PageRequest;
 use App\Models\Page;
+use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
@@ -35,7 +36,6 @@ class PageController extends Controller
     public function create()
     {
         $this->authorize('create_page');
-
         return view('backend.pages.create');
     }
 
@@ -45,9 +45,10 @@ class PageController extends Controller
 
         $this->page->create($request->validated());
 
+        Cache::forget('pages_menu');
+        Cache::forget('posts_menu');
+
         return redirect()->route('admin.pages.index')->with(['message' => 'Page added successfully', 'alert-type' => 'success',]);
-
-
     }
 
     public function edit(Page $page)
@@ -61,6 +62,9 @@ class PageController extends Controller
     {
         $page->update($request->validated());
 
+        Cache::forget('pages_menu');
+        Cache::forget('posts_menu');
+
         return redirect()->route('admin.pages.index')->with(['message' => 'Page updated successfully', 'alert-type' => 'success',]);
     }
 
@@ -72,5 +76,4 @@ class PageController extends Controller
 
         return redirect()->back()->with(['message' => 'Page deleted successfully', 'alert-type' => 'success',]);
     }
-
 }

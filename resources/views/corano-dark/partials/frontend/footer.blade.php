@@ -40,11 +40,11 @@
                             <h6 class="widget-title">Information</h6>
                             <div class="widget-body">
                                 <ul class="info-list">
-                                    <li><a href="#">about us</a></li>
+                                    <li><a href="{{ route('page.show', 'about') }}">about us</a></li>
                                     <li><a href="#">Delivery Information</a></li>
-                                    <li><a href="#">privet policy</a></li>
-                                    <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="#">contact us</a></li>
+                                    <li><a href="{{ route('page.show', 'privacy-policy') }}">privet policy</a></li>
+                                    <li><a href="{{ route('page.show', 'terms-and-conditions') }}">Terms & Conditions</a></li>
+                                    <li><a href="{{route('contact.index')}}">contact us</a></li>
                                     <li><a href="#">site map</a></li>
                                 </ul>
                             </div>

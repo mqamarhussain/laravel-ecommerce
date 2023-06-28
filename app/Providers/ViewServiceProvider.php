@@ -82,18 +82,28 @@ class ViewServiceProvider extends ServiceProvider
 
                 /* Pages */
                 if (!Cache::has('pages_menu')) {
-                    $pages_menu = Page::active()->get();
+                    $pages_menu = Page::active()->pages()->latest()->limit(10)->get();
                     Cache::remember('pages_menu', 3600, function () use ($pages_menu) {
                         return $pages_menu;
                     });
                 }
                 $pages_menu = Cache::get('pages_menu');
 
+                /* Pages */
+                if (!Cache::has('posts_menu')) {
+                    $posts_menu = Page::active()->posts()->latest()->limit(10)->get();
+                    Cache::remember('posts_menu', 3600, function () use ($posts_menu) {
+                        return $posts_menu;
+                    });
+                }
+                $posts_menu = Cache::get('posts_menu');
+
                 $view->with([
                     'recent_reviews' => $recent_reviews,
                     'shop_categories_menu' => $shop_categories_menu,
                     'shop_tags_menu' => $shop_tags_menu,
-                    'pages_menu' => $pages_menu
+                    'pages_menu' => $pages_menu,
+                    'posts_menu' => $posts_menu
                 ]);
             });
         }
