@@ -19,6 +19,9 @@ class ShopProductsComponent extends Component
     public $slug;
     public $sortingBy = 'default';
 
+    public function mount($slug) {
+        $this->slug = $slug;
+    }
     public function addToCart($productId)
     {
         $product = Product::whereId($productId)->active()->hasQuantity()->activeCategory()->firstOrFail();

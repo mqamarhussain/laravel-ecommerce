@@ -10,7 +10,7 @@
                         <!-- start logo area -->
                         <div class="col-lg-2">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="{{route('home')}}">
                                     <img src="{{ asset('frontend/corano-dark/assets/img/logo/logo-light.png') }}"
                                         alt="Brand Logo">
                                 </a>
@@ -30,7 +30,7 @@
                                             <li class="{{ request()->routeIs('shop.index') ? 'active' : '' }}"><a
                                                     href="{{ route('shop.index') }}">{{ __('Products') }}</a></li>
                                             <li class="position-static">
-                                                <a href="javascript:void(0);">{{ __('Shop now') }} <i
+                                                <a href="{{route('shop.index')}}">{{ __('shop') }} <i
                                                         class="fa fa-angle-down"></i></a>
                                                 <ul class="megamenu dropdown">
                                                     @foreach ($shop_categories_menu as $global_category)
@@ -50,26 +50,30 @@
                                                 </ul>
                                             </li>
 
-                                            <li class=""><a href="#">Posts <i class="fa fa-angle-down"></i></a>
+                                            <li class=""><a href="#">Posts <i
+                                                        class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
                                                     @foreach ($posts_menu as $post)
-
-                                                    <li><a href="{{route('post.show', ['slug' => $post->slug])}}">{{ $post->title }}</a></li>
+                                                        <li><a
+                                                                href="{{ route('post.show', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </li>
 
-                                            <li class=""><a href="#">Pages <i class="fa fa-angle-down"></i></a>
+                                            <li class=""><a href="#">Pages <i
+                                                        class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
                                                     @foreach ($pages_menu as $page)
-
-                                                    <li><a href="{{route('page.show', ['slug' => $page->slug])}}">{{ $page->title }}</a></li>
+                                                        <li><a
+                                                                href="{{ route('page.show', ['slug' => $page->slug]) }}">{{ $page->title }}</a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </li>
 
 
-                                            <li><a href="{{route('contact.index')}}">Contact us</a></li>
+                                            <li><a href="{{ route('contact.index') }}">Contact us</a></li>
                                         </ul>
                                     </nav>
                                     <!-- main menu navbar end -->
@@ -169,7 +173,7 @@
                     <div class="col-12">
                         <div class="mobile-main-header">
                             <div class="mobile-logo">
-                                <a href="{{route('home')}}">
+                                <a href="{{ route('home') }}">
                                     <img src="{{ asset('frontend/corano-dark/assets/img/logo/logo-light.png') }}"
                                         alt="Brand Logo">
                                 </a>
@@ -227,10 +231,12 @@
 
                                 <li class="menu-item-has-children">
                                     <a href="javascript:void(0);">{{ __('Shop now') }}</a>
-                                    <ul class="dropdown">
+                                    <ul class="megamenu dropdown">
                                         @foreach ($shop_categories_menu as $global_category)
-                                            <li class="mega-title"><span>{{ $global_category->name }}</span>
-                                                <ul>
+                                            <li class="mega-title menu-item-has-children">
+                                                <a
+                                                    href="{{ route('shop.index', $global_category->slug) }}">{{ $global_category->name }}</a>
+                                                <ul class="dropdown">
                                                     @foreach ($global_category->children as $children)
                                                         <li>
                                                             <a href="{{ route('shop.index', $children->slug) }}">
@@ -239,6 +245,29 @@
                                                         </li>
                                                     @endforeach
                                                 </ul>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="javascript:void(0);">Posts</a>
+                                    <ul class="dropdown">
+                                        @foreach ($posts_menu as $post)
+                                            <li>
+                                                <a
+                                                    href="{{ route('post.show', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+
+                                <li class="menu-item-has-children">
+                                    <a href="javascript:void(0);">Pages</a>
+                                    <ul class="dropdown">
+                                        @foreach ($pages_menu as $page)
+                                            <li>
+                                                <a href="{{ route('page.show', ['slug' => $page->slug]) }}">{{ $page->title }}
+                                                </a>
                                             </li>
                                         @endforeach
                                     </ul>

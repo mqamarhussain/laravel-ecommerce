@@ -1,13 +1,33 @@
-@extends('layouts.app')
-@section('title', 'Shop products')
+@extends('corano-dark.layouts.app')
+@section('title', 'Shop '.$slug)
 @section('content')
-    <div class="shop-page-wrapper shop-page-padding ptb-100">
-        <div class="container m-auto">
-            <div class="row">
-                <div class="col-lg-3">
-                    @include('partials.frontend.shop.sidebar')
+<!-- breadcrumb area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fa fa-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">shop list left sidebar</li>
+                        </ul>
+                    </nav>
                 </div>
-                <div class="col-lg-9">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb area end -->
+<!-- breadcrumb area end -->
+<div class="shop-main-wrapper section-padding">
+    <div class="container">
+        <div class="row">
+            <!-- sidebar area start -->
+            <div class="col-lg-3 order-2 order-lg-1">
+                    @include('corano-dark.partials.frontend.shop.sidebar')
+                </div>
+                <div class="col-lg-9 order-1 order-lg-2">
                     <livewire:frontend.product.shop-products-component  :slug="$slug"/>
                 </div>
             </div>

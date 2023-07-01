@@ -123,8 +123,13 @@ class CartItemComponent extends Component
 
     public function removeFromCart($rowId)
     {
+        try {
+            Cart::instance('default')->remove($rowId);
+        } catch(\Exception $exception) {
+            $this->alert('warning', 'Error removing from cart');
+            return;
+        }
         $this->clearSession();
-        Cart::instance('default')->remove($rowId);
         $this->emit('update_cart');
         $this->alert('success', 'Item removed from cart!');
     }

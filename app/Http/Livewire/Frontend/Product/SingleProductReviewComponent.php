@@ -14,7 +14,7 @@ class SingleProductReviewComponent extends Component
     use LivewireAlert;
 
     public $showForm = true;
-    public $canRate = false;
+    public $canRate = true;
     public $product;
     public $content;
     public $rating;
@@ -60,7 +60,7 @@ class SingleProductReviewComponent extends Component
     {
         if (!$this->checkProduct){
             $this->alert('error', 'You must buy this item first');
-            return false;
+            // return false;
         }
 
         $rating = Review::where('user_id', auth()->id())->where('product_id', $this->product->id)->first();

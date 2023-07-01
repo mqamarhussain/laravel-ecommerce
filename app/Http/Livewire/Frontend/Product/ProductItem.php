@@ -6,7 +6,6 @@ use App\Models\Product;
 use Livewire\Component;
 
 use App\Services\CartService;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class ProductItem extends Component

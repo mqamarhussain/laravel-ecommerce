@@ -74,6 +74,6 @@ class ShopProductsTagComponent extends Component
             ->orderBy($sortField, $sortType)
             ->paginate($this->paginationLimit);
 
-        return view('livewire.frontend.product.shop-products-component', compact('products'));
+        return view('livewire.frontend.product.shop-products-tag-component', compact('products'));
     }
 }

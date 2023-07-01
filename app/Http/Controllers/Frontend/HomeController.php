@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\Page;
 use App\Models\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +33,9 @@ class HomeController extends Controller
             ->get()
             ->unique('parent_id');
 
-        return view('corano-dark.frontend.index', compact('categories', 'coupon', 'sub_categories'));
+        $latest_posts = Page::active()->posts()->latest()->take(10)->get();
+
+        return view('corano-dark.frontend.index', compact('categories', 'coupon', 'sub_categories', 'latest_posts'));
     }
 
     public function search(Request $request): JsonResponse

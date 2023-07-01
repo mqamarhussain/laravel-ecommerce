@@ -1,137 +1,187 @@
-@extends('layouts.app')
+@extends('corano-dark.layouts.app')
 @section('title', $product->name)
 @section('content')
-    <div class="product-details ptb-100 pb-90">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-lg-7 col-12">
-                    <div class="product-details-img-content">
-                        <div class="product-details-tab mr-70">
-                            @if($product->media_count)
-                                <div class="product-details-large tab-content">
-                                    @foreach ($product->media as $media)
-                                        <div class="tab-pane {{ $loop->index == 0 ? 'active' : '' }} show fade"
-                                             id="pro-details{{ $loop->index }}" role="tabpanel">
-                                            <div class="easyzoom easyzoom--overlay">
-                                                @if($product->media)
-                                                    <a href="{{ asset('storage/images/products/' . $media->file_name ) }}">
-                                                        <img src="{{ asset('storage/images/products/' . $media->file_name ) }}"
-                                                             alt="{{ $product->name }}">
-                                                    </a>
-                                                @else
-                                                    <img src="{{ asset('img/no-img.png' ) }}"
-                                                         alt="{{ $product->name }}">
-                                                @endif
+    <div>
+        <!-- breadcrumb area start -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-wrap">
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('shop.index') }}">shop</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">product details</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb area end -->
+
+        <!-- page main wrapper start -->
+        <div class="shop-main-wrapper section-padding pb-0">
+            <div class="container">
+                <div class="row">
+                    <!-- product details wrapper start -->
+                    <div class="col-lg-12 order-1 order-lg-2">
+                        <!-- product details inner end -->
+                        <div class="product-details-inner">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <div class="product-large-slider">
+                                        @forelse ($product->media as $media)
+                                            <div class="pro-large-img img-zoom">
+                                                <img src="{{ asset('storage/images/products/' . $media?->file_name) }}"
+                                                    alt="{{ $product->name }}" />
+                                            </div>
+                                        @empty
+                                            <div class="pro-large-img img-zoom">
+                                                <img src="{{ asset('storage/images/products/default.jpg') }}"
+                                                    alt="{{ $product->name }}" />
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                    <div class="pro-nav slick-row-10 slick-arrow-style">
+                                        @forelse ($product->media as $media)
+                                            <div class="pro-nav-thumb">
+                                                <img src="{{ asset('storage/images/products/' . $media?->file_name) }}"
+                                                    alt="{{ $product->name }}" />
+                                            </div>
+                                        @empty
+                                            <div class="pro-nav-thumb">
+                                                <img src="{{ asset('storage/images/products/default.jpg') }}"
+                                                    alt="{{ $product->name }}" />
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="product-details-des">
+                                        <h3 class="product-name">{{ $product->name }}</h3>
+                                        <div class="ratings d-flex">
+                                            @if ($product->approved_reviews_avg_rating)
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    <span><i class="fa fa-star-o"></i></span>
+                                                @endfor
+                                            @else
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    <span><i class="fa fa-star-o"></i></span>
+                                                @endfor
+                                            @endif
+
+
+
+                                            <div class="pro-review">
+                                                <span>{{ $product->approved_reviews_count }} Reviews</span>
                                             </div>
                                         </div>
-                                    @endforeach
-                                </div>
-                                <div class="product-details-small nav mt-12" role=tablist>
-                                    @foreach ($product->media as $media)
-                                        <a class="{{ $loop->index == 0 ? 'active' : '' }} mr-12"
-                                           href="#pro-details{{ $loop->index }}" data-toggle="tab" role="tab"
-                                           aria-selected="true">
-                                            <img style="width: 90px;" src="{{ asset('storage/images/products/' . $media->file_name ) }}"
-                                                 alt="{{ $product->name }}">
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @else
-                                <img src="{{ asset('img/no-img.png' ) }}" alt="{{ $product->name }}">
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-5 col-12">
-                    <div class="product-details-content">
-                        <h3>{{ $product->name }}</h3>
-                        <div class="rating-number">
-                            <div class="quick-view-number">
-                                <span class="score">
-                                    <div class="score-wrap">
-                                        @if($product->approved_reviews_avg_rating)
-                                            @for($i = 0; $i < 5; $i++)
-                                                <span class="stars-active">
-                                                    <i class="{{ round($product->approved_reviews_avg_rating) <= $i ? 'far' : 'fas' }} fa-star"></i>
-                                                </span>
-                                            @endfor
-                                        @else
-                                            @for($i = 0; $i < 5; $i++)
-                                                <i class="far fa-star"></i>
-                                            @endfor
-                                        @endif
-                                    </div>
-                                </span>
-                                <span>{{ $product->approved_reviews_count }} Ratting (S)</span>
-                            </div>
-                        </div>
-                        <div class="details-price">
-                            <span>${{ $product->price }}</span>
-                        </div>
-                        <p>{{ $product->description }}</p>
-                        <livewire:frontend.product.single-product-cart-component :product="$product"/>
-                        <div class="product-details-cati-tag mt-35">
-                            <ul>
-                                <li class="categories-title">Categories :</li>
-                                <li><a href="{{ route('shop.index', $product->category->slug) }}">{{ $product->category->name }}</a></li>
-                            </ul>
-                        </div>
-                        <div class="product-details-cati-tag mtb-10">
-                            <ul>
-                                <li class="categories-title">Tags :</li>
-                                <li>
-                                    @if($product->tags->count() > 0)
-                                        @foreach($product->tags as $tag)
-                                            {{ $tag->name }}
-                                            <span>{{ $loop->last ? '' : ',' }}</span>
-                                        @endforeach
-                                    @endif
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product-share">
-                            <ul>
-                                <li class="categories-title">Share :</li>
-                                <li>
-                                    @include('partials.frontend.shareBtn')
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product-description-review-area pb-90">
-        <div class="container">
-            <div class="product-description-review text-center">
-                <div class="description-review-title nav" role=tablist>
-                    <a class="active" href="#pro-review" data-toggle="tab" role="tab" aria-selected="false">
-                        Reviews ({{ $product->approved_reviews_count }})
-                    </a>
-                    <a href="#pro-dec" data-toggle="tab" role="tab" aria-selected="true">
-                        Description
-                    </a>
-                </div>
-                <div class="description-review-text tab-content">
-                    <div class="tab-pane fade" id="pro-dec" role="tabpanel">
-                        <p>{!! $product->details !!}</p>
-                    </div>
-                    <div class="tab-pane active show fade" id="pro-review" role="tabpanel">
-                        <div class="page-blog-details section-padding--lg bg--white pt-0">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-9 col-12">
-                                        <livewire:frontend.product.single-product-review-component :product="$product" />
+                                        <div class="price-box">
+                                            <span class="price-regular">{{ currency_format($product->price) }}</span>
+                                            @if ($product->discount_amount > 0)
+                                                <span
+                                                    class="price-old"><del>{{ currency_format($product->oldPrice()) }}</del></span>
+                                            @endif
+                                        </div>
+                                        <div class="availability">
+                                            <i class="fa fa-check-circle"></i>
+                                            <span> in stock</span>
+                                        </div>
+                                        <p class="pro-desc">{!! $product->description !!}</p>
+                                        <livewire:frontend.product.single-product-cart-component :product="$product" />
+                                        <div class="pro-size">
+                                            <h6 class="option-title">size :</h6>
+                                            <select class="nice-select">
+                                                <option>S</option>
+                                                <option>M</option>
+                                                <option>L</option>
+                                                <option>XL</option>
+                                            </select>
+                                        </div>
+                                        <div class="color-option">
+                                            <h6 class="option-title">color :</h6>
+                                            <ul class="color-categories">
+                                                <li>
+                                                    <a class="c-lightblue" href="#" title="LightSteelblue"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="c-darktan" href="#" title="Darktan"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="c-grey" href="#" title="Grey"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="c-brown" href="#" title="Brown"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="useful-links">
+                                            <a href="#" data-toggle="tooltip" title="Wishlist"><i
+                                                    class="pe-7s-like"></i>wishlist</a>
+                                        </div>
+                                        <div class="like-icon">
+                                            @include('corano-dark.partials.frontend.shareBtn')
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <livewire:frontend.product.related-products-component :relatedProducts="$relatedProducts" />
-@endsection
+                        <!-- product details inner end -->
 
+                        <!-- product details reviews start -->
+                        <div class="product-details-reviews section-padding pb-0">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="product-review-info">
+                                        <ul class="nav review-tab">
+                                            <li>
+                                                <a class="active" data-toggle="tab" href="#tab_three">reviews (1)</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content reviews-tab">
+                                            <div class="tab-pane fade show active" id="tab_three">
+                                                <livewire:frontend.product.single-product-review-component :product="$product" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- product details reviews end -->
+                    </div>
+                    <!-- product details wrapper end -->
+                </div>
+            </div>
+        </div>
+        <!-- page main wrapper end -->
+
+        <!-- related products area start -->
+        <section class="related-products section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- section title start -->
+                        <div class="section-title text-center">
+                            <h2 class="title">Related Products</h2>
+                            <p class="sub-title">Add related products to weekly lineup</p>
+                        </div>
+                        <!-- section title start -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-carousel-4 slick-row-10 slick-arrow-style">
+                            @foreach ($relatedProducts as $product)
+                            <livewire:frontend.product.product-item :product="$product" />
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- related products area end -->
+    </div>
+@endsection

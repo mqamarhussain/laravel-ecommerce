@@ -30,6 +30,6 @@ class ProductController extends Controller
             ->take(4)
             ->get(['id', 'slug', 'name', 'price']);
 
-        return view('frontend.product.show', compact('product', 'relatedProducts'));
+        return view('corano-dark.frontend.product.show', compact('product', 'relatedProducts'));
     }
 }

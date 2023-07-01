@@ -26,7 +26,7 @@
                                             href="{{ route('product.show', $cart_item->model->slug) }}">{{ $cart_item->model->name }}</a>
                                     </td>
                                     <td class="pro-price"><span>{{ currency_format($cart_item->price) }}</span></td>
-                                    <td class="pro-quantity" >
+                                    <td class="pro-quantity">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <span class="text-uppercase text-gray headings-font-family"></span>
                                             <a wire:click.prevent="decreaseQuantity('{{ $cart_item->rowId }}')"
@@ -43,9 +43,13 @@
                                     <td class="pro-subtotal">
                                         <span>{{ currency_format($cart_item->model->price * $cart_item->qty) }}</span>
                                     </td>
-                                    <td class="pro-remove"><a href="#"
-                                            wire:click.prevent="removeFromCart('{{ $cart_item->rowId }}')"><i
-                                                class="fa fa-trash-o"></i></a></td>
+                                    <td class="pro-remove">
+                                        <a href="#"
+                                            wire:click.prevent="removeFromCart('{{ $cart_item->rowId }}')" wire:loading.remove wire:target='removeFromCart'><i
+                                                class="fa fa-trash-o"></i></a>
+                                        <a href="#" wire:loading wire:target='removeFromCart'><i
+                                                class="fa fa-trash-o"></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -95,7 +99,7 @@
                             @endif
                             @if ($couponCode)
                                 <tr>
-                                    <td>Coupon Discount ({{$couponCode}})</td>
+                                    <td>Coupon Discount ({{ $couponCode }})</td>
                                     <td>{{ currency_format($cartDiscount) }}</td>
                                 </tr>
                             @endif

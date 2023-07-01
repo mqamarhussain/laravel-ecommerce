@@ -108,9 +108,10 @@ class Product extends Model
             ->orderBy('file_sort', 'asc');
     }
 
-    public function getImageAttribute(): string{
-        $iamge_name = ($this->firstMedia?->file_name)?:'default.jpg';
-        return asset('storage/images/products/'.$iamge_name);
+    public function getImageAttribute(): string
+    {
+        $image = ($this->firstMedia?->file_name) ?: 'default.jpg';
+        return asset('storage/images/products/' . $image);
     }
 
     public function ratings(): HasMany
@@ -121,5 +122,21 @@ class Product extends Model
     public function rate()
     {
         return $this->ratings->isNotEmpty() ? $this->ratings()->sum('value') / $this->ratings()->count() : 0;
+    }
+
+    public function getDiscountAmountAttribute()
+    {
+        return round((($this->discount > 0 && $this->discount_type === 'fixed') ?
+            $this->discount : $this->price * ($this->discount / 100)), 2);
+    }
+
+    public function getDiscountPercentAttribute()
+    {
+        return round(($this->discount > 0 && ($this->discount_type === 'percent') ?
+            $this->discount : ($this->discount / $this->price) * 100), 2);
+    }
+
+    public function oldPrice(){
+        return $this->price + $this->discount_amount;
     }
 }

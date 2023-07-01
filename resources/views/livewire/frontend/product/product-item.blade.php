@@ -10,16 +10,18 @@
                     <span>new</span>
                 </div>
             @endif
-            <div class="product-label discount">
-                <span>20%</span>
-            </div>
+            @if ($product->discount_percent > 0)
+                <div class="product-label discount">
+                    <span>{{ $product->discount_percent }}%</span>
+                </div>
+            @endif
         </div>
         <div class="button-group">
             <a href="#" wire:click.prevent="addToWishList('{{ $product->id }}')" data-toggle="tooltip"
                 data-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
         </div>
         <div class="cart-hover">
-            @if (Cart::search(function ($cartItem, $rowId) use ($product) {
+            @if (Cart::instance('default')->search(function ($cartItem, $rowId) use ($product) {
                     return $cartItem->id == $product->id;
                 })->count() > 0)
                 <button class="btn btn-cart2" disabled>added to cart</button>
@@ -53,8 +55,10 @@
             <a href="product-details.html">{{ $product->name }}</a>
         </h6>
         <div class="price-box">
-            <span class="price-regular">{{ $product->price }}</span>
-            <span class="price-old"><del>{{ $product->price + 0.2 * $product->price }}</del></span>
+            <span class="price-regular">{{ currency_format($product->price) }}</span>
+            @if ($product->discount_amount > 0)
+                <span class="price-old"><del>{{ currency_format($product->oldPrice()) }}</del></span>
+            @endif
         </div>
     </div>
 </div>
