@@ -4,7 +4,7 @@
              @foreach ($categories as $global_category)
                  <div class="col-sm-6">
                      <figure class="banner-statistics mt-20">
-                         <a href="#">
+                         <a href="{{route('shop.index', $global_category->slug)}}">
                              <img src="{{ $global_category->image }} "
                                  alt="product banner">
                          </a>

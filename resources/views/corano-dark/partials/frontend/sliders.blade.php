@@ -1,16 +1,17 @@
 <section class="slider-area">
     <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
+        @foreach ($sliders as $slider)
         <!-- single slider item start -->
         <div class="hero-single-slide hero-overlay">
             <div class="hero-slider-item bg-img"
-                data-bg="{{ asset('frontend/corano-dark/assets/img/slider/home1-slide2.jpg') }} ">
+                data-bg="{{ $slider->image_name }} ">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="hero-slider-content slide-1">
-                                <h2 class="slide-title">Family Jewelry <span>Collection</span></h2>
-                                <h4 class="slide-desc">Designer Jewelry Necklaces-Bracelets-Earings</h4>
-                                <a href="shop.html" class="btn btn-hero">Read More</a>
+                                <h2 class="slide-title">{!! $slider->title !!}</h2>
+                                <h4 class="slide-desc">{{ $slider->text }}</h4>
+                                <a href="{{url($slider->link)}}" class="btn btn-hero">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -18,43 +19,6 @@
             </div>
         </div>
         <!-- single slider item start -->
-
-        <!-- single slider item start -->
-        <div class="hero-single-slide hero-overlay">
-            <div class="hero-slider-item bg-img"
-                data-bg="{{ asset('frontend/corano-dark/assets/img/slider/home1-slide3.jpg') }} ">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="hero-slider-content slide-2 float-md-right float-none">
-                                <h2 class="slide-title">Diamonds Jewelry<span>Collection</span></h2>
-                                <h4 class="slide-desc">Shukra Yogam & Silver Power Silver Saving Schemes.</h4>
-                                <a href="shop.html" class="btn btn-hero">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- single slider item start -->
-
-        <!-- single slider item start -->
-        <div class="hero-single-slide hero-overlay">
-            <div class="hero-slider-item bg-img"
-                data-bg="{{ asset('frontend/corano-dark/assets/img/slider/home1-slide1.jpg') }} ">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="hero-slider-content slide-3">
-                                <h2 class="slide-title">Grace Designer<span>Jewelry</span></h2>
-                                <h4 class="slide-desc">Rings, Occasion Pieces, Pandora & More.</h4>
-                                <a href="shop.html" class="btn btn-hero">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- single slider item end -->
+        @endforeach
     </div>
 </section>

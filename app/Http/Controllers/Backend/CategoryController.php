@@ -47,7 +47,7 @@ class CategoryController extends Controller
 
         $image = NULL;
         if ($request->hasFile('cover')) {
-            $image = $this->uploadImage($request->name, $request->cover, 'categories', 500, NULL);
+            $image = $this->uploadImage($request->name, $request->cover, 'categories', 545, 250);
         }
 
         Category::create([
@@ -90,7 +90,7 @@ class CategoryController extends Controller
             if ($category->cover != null && File::exists('storage/assets/images/categories/'. $category->cover)) {
                 unlink('storage/assets/images/categories/'. $category->cover);
             }
-            $image = $this->uploadImage($request->name, $request->cover, 'categories', 500, NULL);
+            $image = $this->uploadImage($request->name, $request->cover, 'categories', 545, 250);
         }
 
         $category->update([

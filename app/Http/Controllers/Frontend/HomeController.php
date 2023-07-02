@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\Slider;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,9 +34,11 @@ class HomeController extends Controller
             ->get()
             ->unique('parent_id');
 
+        $sliders = Slider::active()->get();
+
         $latest_posts = Page::active()->posts()->latest()->take(10)->get();
 
-        return view('corano-dark.frontend.index', compact('categories', 'coupon', 'sub_categories', 'latest_posts'));
+        return view('corano-dark.frontend.index', compact('categories', 'coupon', 'sub_categories', 'latest_posts', 'sliders'));
     }
 
     public function search(Request $request): JsonResponse

@@ -1,26 +1,28 @@
 <?php
-use App\Http\Controllers\Backend\AdminAuthController;
-use App\Http\Controllers\Backend\BackendController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\CityController;
-use App\Http\Controllers\Backend\ContactController;
-use App\Http\Controllers\Backend\CouponController;
-use App\Http\Controllers\Backend\LinkController;
-use App\Http\Controllers\Backend\PageController;
-use App\Http\Controllers\Backend\ProductController;
-use App\Http\Controllers\Backend\ReviewController;
-use App\Http\Controllers\Backend\TagController;
-use App\Http\Controllers\Backend\SupervisorController;
-use App\Http\Controllers\Backend\CountryController;
-use App\Http\Controllers\Backend\StateController;
-use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\Backend\UserAddressController;
-use App\Http\Controllers\Backend\ShippingCompanyController;
-use App\Http\Controllers\Backend\PaymentMethodController;
-use App\Http\Controllers\Backend\OrderController;
-use App\Http\Controllers\Backend\SettingController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\TagController;
+use App\Http\Controllers\Backend\CityController;
+use App\Http\Controllers\Backend\LinkController;
+use App\Http\Controllers\Backend\PageController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\StateController;
+use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\ReviewController;
+use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\BackendController;
+use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Backend\CountryController;
+use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\AdminAuthController;
+use App\Http\Controllers\Backend\SupervisorController;
+use App\Http\Controllers\Backend\UserAddressController;
+use App\Http\Controllers\Backend\PaymentMethodController;
+use App\Http\Controllers\Backend\ShippingCompanyController;
 
 Auth::routes(['verify' => true]);
 
@@ -34,6 +36,7 @@ Route::group(['middleware' => ['roles']], function () {
     Route::get('/account-settings', [AdminAuthController::class, 'accountSetting'])->name('account_setting');
     Route::patch('/account-settings', [AdminAuthController::class, 'updateAccount'])->name('account_setting.update');
     Route::get('/categories/{category}/remove-image', [CategoryController::class, 'removeImage'])->name('categories.remove_image');
+    Route::get('/sliders/{slider}/remove-image', [SliderController::class, 'removeImage'])->name('sliders.remove_image');
     Route::resource('categories', CategoryController::class);
     Route::post('/products/remove-image', [ProductController::class, 'removeImage'])->name('products.remove_image');
     Route::resource('products', ProductController::class);
@@ -57,5 +60,5 @@ Route::group(['middleware' => ['roles']], function () {
     Route::resource('contacts', ContactController::class)->except('create', 'edit', 'update');
     Route::resource('links', LinkController::class)->except('show');
     Route::resource('pages', PageController::class);
+    Route::resource('sliders', SliderController::class);
 });
-
