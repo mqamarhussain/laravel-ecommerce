@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
-                    <div class="contact-message m-5 p-5"> {{bcrypt('password')}}
+                    <div class="contact-message m-5 p-5">
                         <h4 class="contact-title mb-2 text-center">Login to your account</h4>
                         <form action="{{ route('login') }}" method="POST" class="contact-form">
                             @csrf
