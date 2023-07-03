@@ -180,10 +180,7 @@
                             </div>
                             <div class="mobile-menu-toggler">
                                 <div class="mini-cart-wrap">
-                                    <a href="cart.html">
-                                        <i class="pe-7s-shopbag"></i>
-                                        <div class="notification">0</div>
-                                    </a>
+                                    <livewire:frontend.header.cart-component />
                                 </div>
                                 <button class="mobile-menu-btn">
                                     <span></span>
