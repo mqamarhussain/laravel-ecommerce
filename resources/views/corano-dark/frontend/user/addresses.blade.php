@@ -1,24 +1,31 @@
-@extends('layouts.app')
+@extends('corano-dark.layouts.app')
 @section('title', 'User Address')
 @section('content')
-    <section class="breadcrumb-area pt-5 pb-5" style="background-color: #09c6a2">
+    <!-- breadcrumb area start -->
+    <div class="breadcrumb-area">
         <div class="container">
-            <div class="breadcrumb-content text-center">
-                <h2>Addresses</h2>
-                <ul>
-                    <li><a href="{{route('home')}}">home</a></li>
-                    <li> My addresses</li>
-                </ul>
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-wrap">
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fa fa-home"></i></a></li>
+                                <li class="breadcrumb-item active" aria-current="page">addresses</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-    <section class="container pt-4 pb-5 ">
+    </div>
+    <!-- breadcrumb area end -->
+    <section class="container pt-4 pb-5 bg-white">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-md-12 col-lg-8 text-dark">
                 <livewire:frontend.user.addresses-component />
             </div>
-            <div class="col-lg-4">
-                @include('partials.frontend.user.sidebar')
+            <div class="col-md-12 col-lg-4 text-dark">
+                @include('corano-dark.partials.frontend.user.sidebar')
             </div>
         </div>
     </section>

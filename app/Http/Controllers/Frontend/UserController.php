@@ -14,12 +14,12 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        return view('frontend.user.dashboard');
+        return view('corano-dark.frontend.user.dashboard');
     }
 
     public function profile()
     {
-        return view('frontend.user.profile');
+        return view('corano-dark.frontend.user.profile');
     }
 
     public function updateProfile(ProfileRequest $request)
@@ -66,11 +66,11 @@ class UserController extends Controller
 
     public function addresses()
     {
-        return view('frontend.user.addresses');
+        return view('corano-dark.frontend.user.addresses');
     }
 
     public function orders()
     {
-        return view('frontend.user.orders');
+        return view('corano-dark.frontend.user.orders');
     }
 }

@@ -1,20 +1,27 @@
-@extends('layouts.app')
+@extends('corano-dark.layouts.app')
 @section('title', 'User Profile')
 @section('content')
-    <section class="breadcrumb-area pt-5 pb-5" style="background-color: #09c6a2">
-        <div class="container">
-            <div class="breadcrumb-content text-center">
-                <h2>Dashboard</h2>
-                <ul>
-                    <li><a href="{{route('home')}}">home</a></li>
-                    <li> My profile</li>
-                </ul>
+    <!-- breadcrumb area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fa fa-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
-    </section>
-    <section class="container pt-4 pb-5 ">
+    </div>
+</div>
+<!-- breadcrumb area end -->
+    <section class="container pt-4 pb-5 bg-white">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-md-12 col-lg-8 text-dark">
                 <form action="{{ route('user.update_profile') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     @method('PATCH')
@@ -108,13 +115,13 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <button class="button bg-dark text-white" type="submit">Update</button>
+                            <button class="btn p-4 bg-dark btn-dark" type="submit">Update</button>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-4">
-                @include('partials.frontend.user.sidebar')
+            <div class="col-md-12 col-lg-4 text-dark">
+                @include('corano-dark.partials.frontend.user.sidebar')
             </div>
         </div>
     </section>
