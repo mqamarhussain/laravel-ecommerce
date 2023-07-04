@@ -8,7 +8,7 @@
                             <div class="widget-title">
                                 <div class="widget-logo">
                                     <a href="index.html">
-                                        <img src="{{ asset('frontend/corano-dark/assets/img/logo/logo-light.png') }}"
+                                        <img src="{{ site_logo() }}"
                                             alt="brand logo">
                                     </a>
                                 </div>
@@ -54,10 +54,10 @@
                         <div class="widget-item">
                             <h6 class="widget-title">Follow Us</h6>
                             <div class="widget-body social-link">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-youtube"></i></a>
+                                <a href="{!! getSettingsOf('fb_link') !!}"><i class="fa fa-facebook"></i></a>
+                                <a href="{!! getSettingsOf('twitter_id') !!}"><i class="fa fa-twitter"></i></a>
+                                <a href="{!! getSettingsOf('instagram_link') !!}"><i class="fa fa-instagram"></i></a>
+                                <a href="{!! getSettingsOf('youtube_link') !!}"><i class="fa fa-youtube"></i></a>
                             </div>
                         </div>
                     </div>
@@ -93,9 +93,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="copyright-text text-center">
-                            <p>&copy; 2022 <b class="text-white">Corano</b> Made with <i
-                                    class="fa fa-heart text-danger"></i> by <a
-                                    href="https://hasthemes.com/"><b>HasThemes</b></a></p>
+                            <p>&copy; {{date('Y')}} <b class="text-white">{{ getSettingsOf('site_title') }}</a></p>
                         </div>
                     </div>
                 </div>

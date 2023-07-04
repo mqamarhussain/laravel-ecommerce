@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use File;
 
 class Product extends Model
 {
@@ -110,8 +111,11 @@ class Product extends Model
 
     public function getImageAttribute(): string
     {
-        $image = ($this->firstMedia?->file_name) ?: 'default.jpg';
-        return asset('storage/images/products/' . $image);
+
+        if ($this->firstMedia && File::exists(public_path('storage/images/products/' . $this->firstMedia->file_name))) {
+            return asset('storage/images/products/' . $this->firstMedia?->file_name);
+        }
+        return asset('default-images/products/default.jpg');
     }
 
     public function ratings(): HasMany
@@ -136,7 +140,8 @@ class Product extends Model
             $this->discount : ($this->discount / $this->price) * 100), 2);
     }
 
-    public function oldPrice(){
+    public function oldPrice()
+    {
         return $this->price + $this->discount_amount;
     }
 }

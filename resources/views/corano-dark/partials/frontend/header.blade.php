@@ -11,7 +11,7 @@
                         <div class="col-lg-2">
                             <div class="logo">
                                 <a href="{{route('home')}}">
-                                    <img src="{{ asset('frontend/corano-dark/assets/img/logo/logo-light.png') }}"
+                                    <img src="{{ site_logo() }}"
                                         alt="Brand Logo">
                                 </a>
                             </div>
@@ -174,7 +174,7 @@
                         <div class="mobile-main-header">
                             <div class="mobile-logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('frontend/corano-dark/assets/img/logo/logo-light.png') }}"
+                                    <img src="{{ site_logo() }}"
                                         alt="Brand Logo">
                                 </a>
                             </div>
@@ -315,11 +315,10 @@
                             </ul>
                         </div>
                         <div class="off-canvas-social-widget">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="{!! getSettingsOf('fb_link') !!}"><i class="fa fa-facebook"></i></a>
+                            <a href="{!! getSettingsOf('twitter_id') !!}"><i class="fa fa-twitter"></i></a>
+                            <a href="{!! getSettingsOf('instagram_link') !!}"><i class="fa fa-pinterest-p"></i></a>
+                            <a href="{!! getSettingsOf('youtube_link') !!}"><i class="fa fa-youtube-play"></i></a>
                         </div>
                     </div>
                     <!-- offcanvas widget area end -->

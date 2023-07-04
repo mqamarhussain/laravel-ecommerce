@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use File;
 class Slider extends Model
 {
     use HasFactory;
@@ -23,8 +23,10 @@ class Slider extends Model
 
     public function getImageNameAttribute(): string
     {
-        $image = ($this->image) ?: 'default.jpg';
-        return asset('storage/images/sliders/' . $image);
+        if ($this->image && File::exists(public_path('storage/images/sliders/' . $this->image))) {
+            return asset('storage/images/sliders/' . $this->image);
+        }
+        return asset('default-images/sliders/default.jpg');
     }
 
 }

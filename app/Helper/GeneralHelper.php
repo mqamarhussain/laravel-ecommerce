@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Valuestore\Valuestore;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Collection;
+use File;
+use function Clue\StreamFilter\fun;
 
 function get_gravatar($email, int $s = 80, string $d = 'mp', string $r = 'g', bool $img = false, array $atts = array()): string
 {
@@ -30,8 +33,15 @@ function clear_cache(): void
 
 function getSettingsOf(string $key)
 {
-    $settings = Valuestore::make(config_path('settings.json'));
-    return $settings->get($key);
+    return Setting::where('key', $key)->first()?->value;
+}
+
+function site_logo(){
+    $site_logo = getSettingsOf('site_logo');
+    if ($site_logo && File::exists(public_path('storage/images/setting/' . $site_logo))) {
+        return asset('storage/images/setting/' . $site_logo);
+    }
+    return asset('default-images/setting/default.png');
 }
 
 function getNumbersOfCart(): Collection

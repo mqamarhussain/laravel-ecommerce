@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Nicolaslopezj\Searchable\SearchableTrait;
-
+use File;
 class Category extends Model
 {
     use Sluggable, SearchableTrait, HasFactory;
@@ -43,8 +43,11 @@ class Category extends Model
     }
 
     public function getImageAttribute(): string{
-        $iamge_name = $this->cover?:'default.jpg';
-        return asset('storage/images/categories/'.$iamge_name);
+
+        if ($this->cover && File::exists(public_path('storage/images/categories/' . $this->cover))) {
+            return asset('storage/images/categories/' . $this->cover);
+        }
+        return asset('default-images/categories/default.jpg');
     }
 
     public function scopeActive($query)

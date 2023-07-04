@@ -7,10 +7,14 @@ use App\Models\Setting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
+
 use Spatie\Valuestore\Valuestore;
 
 class SettingController extends Controller
 {
+    use ImageUploadTrait;
+
     public function index(): View
     {
         $this->authorize('access_setting');
@@ -25,13 +29,22 @@ class SettingController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $this->authorize('edit_setting');
-
-        for ($i = 0; $i < count($request->id); $i++) {
-            $input['value'] = $request->value[$i] ?? null;
-            Setting::whereId($request->id[$i])->first()->update($input);
+        $data = $request->all();
+        foreach ($data as $key => $val) {
+            if ($key == 'site_logo')
+                continue;
+            Setting::where('key', $key)->update(['value' => $val]);
         }
 
-        $this->generateCache();
+        $image = NULL;
+        if ($request->hasFile('site_logo')) {
+            $image = $this->uploadImage($request->site_title, $request->site_logo, 'setting', 112, 33);
+        }
+
+        if ($image) {
+            Setting::where('key', 'site_logo')->update(['value' => $image]);
+        }
+        // $this->generateCache();
 
         return redirect()->route('admin.settings.index')->with([
             'message' => 'Setting updated successfully',
