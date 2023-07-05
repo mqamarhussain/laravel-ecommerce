@@ -53,6 +53,26 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
+                            <label for="discount_type" class="text-small text-uppercase">{{ __('Discount type') }}</label>
+                            <select class="form-control form-control-lg" name="discount_type">
+                                <option value="percent" {{ old('discount_type', $product->discount_type) == 'percent' ? 'selected' : null }}>Percent</option>
+                                <option value="fixed" {{ old('discount_type', $product->discount_type) == 'fixed' ? 'selected' : null }}>Fixed</option>
+                            </select>
+                            @error('discount_type')<span class="text-danger">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="discount" class="text-small text-uppercase">{{ __('discount') }}</label>
+                            <input id="discount" type="number" class="form-control form-control-lg" name="discount"
+                                   value="{{ old('discount', $product->discount)??0 }}" >
+                            @error('discount')<span class="text-danger">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
                             <label for="category_id">Category</label>
                             <select name="category_id" id="category_id" class="form-control">
                                 <option value="">---</option>
@@ -149,7 +169,7 @@
                         @error('images')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-3">
                     <button type="submit" class="btn btn-primary">
                         {{ __('Update') }}
                     </button>

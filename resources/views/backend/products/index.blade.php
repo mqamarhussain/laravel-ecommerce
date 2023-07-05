@@ -42,12 +42,9 @@
                     <tr>
                         <td>{{ $product->id }}</td>
                         <td>
-                            @if($product->firstMedia)
-                            <img src="{{ asset('storage/images/products/' . $product->firstMedia->file_name) }}"
+                            <img src="{{ $product->image }}"
                                  width="60" height="60" alt="{{ $product->name }}">
-                            @else
-                                <img src="{{ asset('img/no-img.png') }}" width="60" height="60" alt="{{ $product->name }}">
-                            @endif
+
                         </td>
                         <td><a href="{{ route('admin.products.show', $product->id) }}">{{ $product->name }}</a></td>
                         <td>{{ $product->featured }}</td>
