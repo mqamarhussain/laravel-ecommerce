@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('corano-dark.layouts.app')
 @section('title', 'Checkout')
 @section('content')
     <div class="checkout-area pt-5 pb-5">

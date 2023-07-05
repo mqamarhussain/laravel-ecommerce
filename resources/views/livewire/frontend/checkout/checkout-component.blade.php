@@ -5,8 +5,8 @@
                 <p>Have a coupon?</p>
                 <form wire:submit.prevent="applyDiscount()">
                     <p class="checkout-coupon">
-                        <input wire:model="couponCode" type="text" placeholder="Coupon code" required/>
-                        <input type="submit" value="Apply Coupon" />
+                        <input wire:model="couponCode" class="form-control form-control-lg w-25 d-inline" type="text" placeholder="Coupon code" required/>
+                        <input type="submit" class="btn bg-info btn-info p-3" value="Apply Coupon" />
                     </p>
                 </form>
             @endif
@@ -109,7 +109,7 @@
                                value="{{ old('shippingCompanyId', $shippingCompanyId) }}" class="form-control">
                         <input type="hidden" name="paymentMethodId" value="{{ old('paymentMethodId', $paymentMethodId) }}"
                                class="form-control">
-                        <button type="submit" name="submit" class="btn btn-sm btn-primary btn-block uppercase">
+                        <button type="submit" name="submit" class="btn-cart">
                             PayPay Place order
                         </button>
                     </form>
@@ -123,7 +123,7 @@
                                    value="{{ old('shippingCompanyId', $shippingCompanyId) }}" class="form-control">
                             <input type="hidden" name="paymentMethodId" value="{{ old('paymentMethodId', $paymentMethodId) }}"
                                    class="form-control">
-                            <button type="submit" name="submit" class="btn btn-sm btn-dark btn-block uppercase">
+                            <button type="submit" name="submit" class="btn-cart">
                                 Mada Place order
                             </button>
                         </form>
