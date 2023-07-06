@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Cache;
 use Spatie\Valuestore\Valuestore;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Collection;
-use File;
+use Illuminate\Support\Facades\File;
 use function Clue\StreamFilter\fun;
 
 function get_gravatar($email, int $s = 80, string $d = 'mp', string $r = 'g', bool $img = false, array $atts = array()): string
