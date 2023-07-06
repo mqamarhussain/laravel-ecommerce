@@ -19,7 +19,6 @@ use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\Payment\TapController;
 use App\Http\Controllers\Frontend\Payment\PaypalController;
 use App\Http\Controllers\Frontend\Payment\StripeController;
-use App\Models\PaymentMethod;
 
 Auth::routes(['verify' => true]);
 
@@ -69,8 +68,3 @@ Route::middleware(['middleware' => 'auth', 'checkCart'])->group(function () {
     Route::post('/store-stripe-payment', [StripeController::class, 'payment'])->name('stripe.payment.store');
 });
 
-
-Route::get('seeddb', function () {
-    $pm = PaymentMethod::where('id', 3)->update(['driver_name' => 'stripe']);
-    dd($pm);
-});
