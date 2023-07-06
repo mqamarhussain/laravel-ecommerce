@@ -46,12 +46,12 @@
                                 <a href="{{ route('admin.payment_methods.edit', $paymentMethod) }}" class="btn btn-sm btn-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="javascript:void(0);"
+                                {{-- <a href="javascript:void(0);"
                                    onclick="if (confirm('Are you sure to delete this record?'))
                                        {document.getElementById('delete-paymentMethod-{{ $paymentMethod->id }}').submit();} else {return false;}"
                                    class="btn btn-sm btn-danger">
                                     <i class="fa fa-trash"></i>
-                                </a>
+                                </a> --}}
                             </div>
                             <form action="{{ route('admin.payment_methods.destroy', $paymentMethod) }}"
                                   method="POST"
