@@ -100,7 +100,7 @@ class OrderController extends Controller
                 'payment_result'=> null,
             ]);
 
-            $user->notify(new OrderStatusNotification($order));
+            // $user->notify(new OrderStatusNotification($order));
 
             return back()->with([
                 'message' => 'updated successfully',

@@ -55,7 +55,7 @@ function getNumbersOfCart(): Collection
     $tax = config('cart.tax') / 100;
     $taxText = config('cart.tax') . '%';
 
-    $productTaxes = round($subtotalAfterDiscount * $tax, 2);
+    $productTaxes = ceil($subtotalAfterDiscount * $tax);
     $newSubTotal = $subtotalAfterDiscount + $productTaxes;
 
     $shipping = session()->has('shipping') ? session()->get('shipping')['cost'] : 0.00;
@@ -73,7 +73,7 @@ function getNumbersOfCart(): Collection
         'discountCode' => $discountCode,
         'shipping' => (float) $shipping,
         'shippingCode' => $shippingCode,
-        'total' => (float) $total,
+        'total' => (float) ceil($total),
     ]);
 }
 

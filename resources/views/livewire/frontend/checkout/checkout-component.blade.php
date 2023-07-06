@@ -1,11 +1,12 @@
 <div>
     <div class="row">
         <div class="col-md-12 mb-3">
-            @if(!session()->has('coupon'))
+            @if (!session()->has('coupon'))
                 <p>Have a coupon?</p>
                 <form wire:submit.prevent="applyDiscount()">
                     <p class="checkout-coupon">
-                        <input wire:model="couponCode" class="form-control form-control-lg w-25 d-inline" type="text" placeholder="Coupon code" required/>
+                        <input wire:model="couponCode" class="form-control form-control-lg w-25 d-inline" type="text"
+                            placeholder="Coupon code" required />
                         <input type="submit" class="btn bg-info btn-info p-3" value="Apply Coupon" />
                     </p>
                 </form>
@@ -19,12 +20,8 @@
                 @forelse($addresses as $address)
                     <div class="col-6 form-group">
                         <div class="custom-control custom-radio">
-                            <input
-                                type="radio"
-                                id="address-{{ $address->id }}"
-                                class="custom-control-input"
-                                wire:model="userAddressId"
-                                wire:click="getShippingCompanies()"
+                            <input type="radio" id="address-{{ $address->id }}" class="custom-control-input"
+                                wire:model="userAddressId" wire:click="getShippingCompanies()"
                                 {{ intval($userAddressId) == $address->id ? 'checked' : '' }}
                                 value="{{ $address->id }}">
 
@@ -32,7 +29,8 @@
                                 <b>{{ $address->address_title }}</b>
                                 <small>
                                     {{ $address->address }}<br>
-                                    {{ $address->country->name }} - {{ $address->state->name }}- {{ $address->city->name }}
+                                    {{ $address->country->name }} - {{ $address->state->name }}-
+                                    {{ $address->city->name }}
 
                                 </small>
                             </label>
@@ -45,25 +43,23 @@
                     </div>
                 @endforelse
             </div>
-            @if($userAddressId)
+            @if ($userAddressId)
                 <h2 class="h5 text-uppercase mb-4">Shipping way</h2>
                 <div class="row">
                     @forelse($shippingCompanies as $shippingCompany)
                         <div class="col-6 form-group">
                             <div class="custom-control custom-radio">
-                                <input
-                                    type="radio"
-                                    id="shipping-company-{{ $shippingCompany->id }}"
-                                    class="custom-control-input"
-                                    wire:model="shippingCompanyId"
+                                <input type="radio" id="shipping-company-{{ $shippingCompany->id }}"
+                                    class="custom-control-input" wire:model="shippingCompanyId"
                                     wire:click="storeShippingCost()"
                                     {{ intval($shippingCompanyId) == $shippingCompany->id ? 'checked' : '' }}
                                     value="{{ $shippingCompany->id }}">
                                 <label for="shipping-company-{{ $shippingCompany->id }}"
-                                       class="custom-control-label text-small">
+                                    class="custom-control-label text-small">
                                     <b>{{ $shippingCompany->name }}</b>
                                     <small>
-                                        {{ $shippingCompany->description }} ({{ currency_format($shippingCompany->cost) }})
+                                        {{ $shippingCompany->description }}
+                                        ({{ currency_format($shippingCompany->cost) }})
                                     </small>
                                 </label>
                             </div>
@@ -73,22 +69,19 @@
                     @endforelse
                 </div>
             @endif
-            @if($userAddressId && $shippingCompanyId)
+            @if ($userAddressId && $shippingCompanyId)
                 <h2 class="h5 text-uppercase mb-4">Payment way</h2>
                 <div class="row">
                     @forelse($paymentMethods as $paymentMethod)
                         <div class="col-6 form-group">
                             <div class="custom-control custom-radio">
-                                <input
-                                    type="radio"
-                                    id="payment-method-{{ $paymentMethod->id }}"
-                                    class="custom-control-input"
-                                    wire:model="paymentMethodId"
+                                <input type="radio" id="payment-method-{{ $paymentMethod->id }}"
+                                    class="custom-control-input" wire:model="paymentMethodId"
                                     wire:click="getPaymentMethod()"
                                     {{ intval($paymentMethodId) == $paymentMethod->id ? 'checked' : '' }}
                                     value="{{ $paymentMethod->id }}">
                                 <label for="payment-method-{{ $paymentMethod->id }}"
-                                       class="custom-control-label text-small">
+                                    class="custom-control-label text-small">
                                     <b>{{ $paymentMethod->name }}</b>
                                 </label>
                             </div>
@@ -99,35 +92,53 @@
                 </div>
             @endif
 
-            @if($userAddressId && $shippingCompanyId && $paymentMethodId)
-                @if(\Str::lower($paymentMethodCode) == 'ppex')
+            @if ($userAddressId && $shippingCompanyId && $paymentMethodId)
+                @if (\Str::lower($paymentMethodCode) == 'ppex')
                     <form action="{{ route('payment.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="userAddressId" value="{{ old('userAddressId', $userAddressId) }}"
-                               class="form-control">
+                            class="form-control">
                         <input type="hidden" name="shippingCompanyId"
-                               value="{{ old('shippingCompanyId', $shippingCompanyId) }}" class="form-control">
-                        <input type="hidden" name="paymentMethodId" value="{{ old('paymentMethodId', $paymentMethodId) }}"
-                               class="form-control">
+                            value="{{ old('shippingCompanyId', $shippingCompanyId) }}" class="form-control">
+                        <input type="hidden" name="paymentMethodId"
+                            value="{{ old('paymentMethodId', $paymentMethodId) }}" class="form-control">
                         <button type="submit" name="submit" class="btn-cart">
                             PayPay Place order
                         </button>
                     </form>
                 @endif
-                    @if(\Str::lower($paymentMethodCode) == 'mada')
-                        <form action="{{ route('checkout.charge_request') }}">
-                            @csrf
-                            <input type="hidden" name="userAddressId" value="{{ old('userAddressId', $userAddressId) }}"
-                                   class="form-control">
-                            <input type="hidden" name="shippingCompanyId"
-                                   value="{{ old('shippingCompanyId', $shippingCompanyId) }}" class="form-control">
-                            <input type="hidden" name="paymentMethodId" value="{{ old('paymentMethodId', $paymentMethodId) }}"
-                                   class="form-control">
-                            <button type="submit" name="submit" class="btn-cart">
-                                Mada Place order
-                            </button>
-                        </form>
-                    @endif
+                @if (\Str::lower($paymentMethodCode) == 'stripe')
+                    <form action="{{ route('stripe.payment') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="userAddressId" value="{{ old('userAddressId', $userAddressId) }}"
+                            class="form-control">
+                        <input type="hidden" name="shippingCompanyId"
+                            value="{{ old('shippingCompanyId', $shippingCompanyId) }}" class="form-control">
+                        <input type="hidden" name="paymentMethodId"
+                            value="{{ old('paymentMethodId', $paymentMethodId) }}" class="form-control">
+                        <input type="hidden" name="total_amount"
+                            value="{{ old('total_amount', $cartTotal) }}" class="form-control">
+
+                        <button type="submit" name="submit" class="btn-cart">
+                            Pay with Stripe
+                        </button>
+                    </form>
+                @endif
+
+                @if (\Str::lower($paymentMethodCode) == 'mada')
+                    <form action="{{ route('checkout.charge_request') }}">
+                        @csrf
+                        <input type="hidden" name="userAddressId" value="{{ old('userAddressId', $userAddressId) }}"
+                            class="form-control">
+                        <input type="hidden" name="shippingCompanyId"
+                            value="{{ old('shippingCompanyId', $shippingCompanyId) }}" class="form-control">
+                        <input type="hidden" name="paymentMethodId"
+                            value="{{ old('paymentMethodId', $paymentMethodId) }}" class="form-control">
+                        <button type="submit" name="submit" class="btn-cart">
+                            Mada Place order
+                        </button>
+                    </form>
+                @endif
             @endif
         </div>
         <div class="col-lg-6 col-md-12 col-12">
@@ -136,48 +147,48 @@
                 <div class="your-order-table table-responsive">
                     <table>
                         <tbody>
-                        <tr>
-                            <th class="product-name">
-                                <strong>Subtotal</strong>
-                            </th>
-                            <th class="product-total">{{ currency_format($cartSubTotal) }}</th>
-                        </tr>
-                        @if(session()->has('coupon'))
                             <tr>
                                 <th class="product-name">
-                                    <strong>Discount</strong>
-                                    <small>({{ getNumbersOfCart()->get('discountCode') }})</small><br>
-                                    <a wire:click.prevent="removeCoupon()"
-                                              class="btn btn-link btn-sm text-decoration-none text-danger">
+                                    <strong>Subtotal</strong>
+                                </th>
+                                <th class="product-total">{{ currency_format($cartSubTotal) }}</th>
+                            </tr>
+                            @if (session()->has('coupon'))
+                                <tr>
+                                    <th class="product-name">
+                                        <strong>Discount</strong>
+                                        <small>({{ getNumbersOfCart()->get('discountCode') }})</small><br>
+                                        <a wire:click.prevent="removeCoupon()"
+                                            class="btn btn-link btn-sm text-decoration-none text-danger">
                                             <small>Remove coupon</small>
                                         </a>
-                                </th>
-                                <th class="product-total">- {{ currency_format($cartDiscount) }}</th>
-                            </tr>
-                        @endif
-                        @if(session()->has('shipping'))
+                                    </th>
+                                    <th class="product-total">- {{ currency_format($cartDiscount) }}</th>
+                                </tr>
+                            @endif
+                            @if (session()->has('shipping'))
+                                <tr>
+                                    <th class="product-name">
+                                        <strong>Shipping</strong>
+                                        <small>({{ getNumbersOfCart()->get('shippingCode') }})</small>
+                                    </th>
+                                    <th class="product-total">{{ currency_format($cartShipping) }}</th>
+                                </tr>
+                            @endif
                             <tr>
                                 <th class="product-name">
-                                    <strong>Shipping</strong>
-                                    <small>({{ getNumbersOfCart()->get('shippingCode') }})</small>
+                                    <strong>Tax</strong>
                                 </th>
-                                <th class="product-total">{{ currency_format($cartShipping) }}</th>
+                                <th class="product-total">{{ currency_format($cartTax) }}</th>
                             </tr>
-                        @endif
-                        <tr>
-                            <th class="product-name">
-                                <strong>Tax</strong>
-                            </th>
-                            <th class="product-total">{{ currency_format($cartTax) }}</th>
-                        </tr>
-                        <tr class="order-total">
-                            <th>
-                                <strong>Total</strong>
-                            </th>
-                            <td>
-                                <strong><span>{{ currency_format($cartTotal) }}</span></strong>
-                            </td>
-                        </tr>
+                            <tr class="order-total">
+                                <th>
+                                    <strong>Total</strong>
+                                </th>
+                                <td>
+                                    <strong><span>{{ currency_format($cartTotal) }}</span></strong>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

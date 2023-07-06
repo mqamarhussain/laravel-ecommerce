@@ -18,6 +18,7 @@ use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Frontend\Payment\TapController;
 use App\Http\Controllers\Frontend\Payment\PaypalController;
+use App\Http\Controllers\Frontend\Payment\StripeController;
 
 Auth::routes(['verify' => true]);
 
@@ -61,5 +62,9 @@ Route::middleware(['middleware' => 'auth', 'checkCart'])->group(function () {
     // Tap gateway
     Route::get('/payment/charge-request', [TapController::class, 'chargeRequest'])->name('checkout.charge_request');
     Route::get('/payment/charge-update', [TapController::class, 'chargeUpdate'])->name('checkout.charge_update');
+
+    // Stripe payment request
+    Route::post('/stripe-payment', [StripeController::class, 'index'])->name('stripe.payment');
+    Route::post('/store-stripe-payment', [StripeController::class, 'payment'])->name('stripe.payment.store');
 });
 

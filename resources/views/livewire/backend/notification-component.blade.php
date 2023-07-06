@@ -25,7 +25,7 @@
                     <span class="font-weight-bold">
                         A return request with amount ({{ $notification->data['amount'] }}) from {{ $notification->data['user_name'] }}
                     </span>
-                @else
+                @elseif(isset($notification->data['amount']) && isset($notification->data['user_name']))
                     <span class="font-weight-bold">
                         A new order with amount ({{ $notification->data['amount'] }}) from {{ $notification->data['user_name'] }}
                     </span>
