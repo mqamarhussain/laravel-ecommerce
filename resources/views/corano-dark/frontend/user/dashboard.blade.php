@@ -19,7 +19,7 @@
     </div>
 </div>
 <!-- breadcrumb area end -->
-    <section class="container pt-4 pb-5 bg-white">
+    <section class="container pt-4 pb-5 bg-white rounded">
         <div class="row">
             <div class="col-md-12 col-lg-8 text-dark">
                 Dashboard

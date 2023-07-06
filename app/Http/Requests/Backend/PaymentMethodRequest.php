@@ -32,9 +32,15 @@ class PaymentMethodRequest extends FormRequest
                     'sandbox' => ['nullable'],
                     'status' => ['nullable'],
                     'merchant_email' => ['nullable', 'email'],
+                    'username' => ['nullable', 'string'],
+                    'user_password' => ['nullable', 'string'],
+                    'signature' => ['nullable', 'string'],
                     'client_id' => ['nullable'],
                     'client_secret' => ['nullable'],
                     'sandbox_merchant_email' => ['nullable'],
+                    'sb_username' => ['nullable', 'string'],
+                    'sb_user_password' => ['nullable', 'string'],
+                    'sb_signature' => ['nullable', 'string'],
                     'sandbox_client_id' => ['nullable'],
                     'sandbox_client_secret' => ['nullable']
                 ];
@@ -51,6 +57,12 @@ class PaymentMethodRequest extends FormRequest
                     'client_id' => ['nullable'],
                     'client_secret' => ['nullable'],
                     'sandbox_merchant_email' => ['nullable'],
+                    'username' => ['nullable', 'string'],
+                    'user_password' => ['nullable', 'string'],
+                    'signature' => ['nullable', 'string'],
+                    'sb_username' => ['nullable', 'string'],
+                    'sb_user_password' => ['nullable', 'string'],
+                    'sb_signature' => ['nullable', 'string'],
                     'sandbox_client_id' => ['nullable'],
                     'sandbox_client_secret' => ['nullable']
                 ];

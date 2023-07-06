@@ -26,7 +26,7 @@ class OrderService
             'shipping' => getNumbersOfCart()->get('shipping'),
             'tax' => getNumbersOfCart()->get('productTaxes'),
             'total' => getNumbersOfCart()->get('total'),
-            'currency' => 'USD',
+            'currency' => 'GBP',
             'order_status' => 0,
         ]);
 

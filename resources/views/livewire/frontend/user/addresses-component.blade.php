@@ -1,8 +1,8 @@
 <div x-data="{ formShow: @entangle('showForm') }">
     <div class="d-flex">
-        <h2 class="h5 text-uppercase mb-4">Addresses</h2>
+        <h2 class="h5 text-uppercase mb-4 bg-dark p-2">Addresses</h2>
         <div class="ml-auto">
-            <button type="button" @click="formShow = true" class="btn btn-dark rounded shadow">
+            <button type="button" @click="formShow = true" class="btn btn-primary bg-primary p-2 rounded shadow">
                 Add new address
             </button>
         </div>
@@ -132,12 +132,12 @@
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <button type="button" wire:click.prevent="editAddress('{{ $address->id }}')" class="btn btn-primary">
+                                <button type="button" wire:click.prevent="editAddress('{{ $address->id }}')" class="btn btn-primary bg-primary">
                                     <i class="fa fa-edit fa-sm"></i>
                                 </button>
                                 <button type="button"
                                         x-on:click.prevent="return confirm('Are you sure?') ? @this.deleteAddress('{{ $address->id }}') : false"
-                                        class="btn btn-danger">
+                                        class="btn btn-danger bg-danger">
                                     <i class="fa fa-trash fa-sm"></i>
                                 </button>
                             </div>

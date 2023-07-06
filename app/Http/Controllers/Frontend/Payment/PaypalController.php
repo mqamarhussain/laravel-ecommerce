@@ -97,9 +97,9 @@ class PaypalController extends Controller
         ]);
 
         // Notification to admins.
-        User::role(['admin', 'supervisor'])->each(function ($admin, $key) use ($order) {
-            $admin->notify(new OrderCreatedNotification($order));
-        });
+        // User::role(['admin', 'supervisor'])->each(function ($admin, $key) use ($order) {
+        //     $admin->notify(new OrderCreatedNotification($order));
+        // });
 
         // Send email with PDF invoice
         // $data = $order->toArray();

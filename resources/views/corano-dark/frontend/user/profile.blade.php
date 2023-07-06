@@ -19,7 +19,7 @@
     </div>
 </div>
 <!-- breadcrumb area end -->
-    <section class="container pt-4 pb-5 bg-white">
+    <section class="container pt-4 pb-5 bg-white rounded">
         <div class="row">
             <div class="col-md-12 col-lg-8 text-dark">
                 <form action="{{ route('user.update_profile') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -115,7 +115,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <button class="btn p-4 bg-dark btn-dark" type="submit">Update</button>
+                            <button class="btn p-2 bg-dark btn-dark" type="submit">Update</button>
                         </div>
                     </div>
                 </form>

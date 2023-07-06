@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\PaymentMethod;
 use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Omnipay;
 
@@ -11,12 +12,23 @@ class OmnipayService
 
     public function __construct(string $paymentMethod = 'PayPal_Express')
     {
+        $config = PaymentMethod::where('driver_name', $paymentMethod)->first();
+
+        // dd($config);
         if (is_null($paymentMethod) || $paymentMethod == 'PayPal_Express') {
             $this->gateway = Omnipay::create('PayPal_Express');
-            $this->gateway->setUsername(config('services.paypal.username'));
-            $this->gateway->setPassword(config('services.paypal.password'));
-            $this->gateway->setSignature(config('services.paypal.signature'));
-            $this->gateway->setTestMode(config('services.paypal.sandbox'));
+
+            if ($config->sandbox) {
+                $this->gateway->setUsername($config->sb_username);
+                $this->gateway->setPassword($config->sb_user_password);
+                $this->gateway->setSignature($config->sb_signature);
+                $this->gateway->setTestMode('sandbox');
+            }else{
+                $this->gateway->setUsername($config->username);
+                $this->gateway->setPassword($config->user_password);
+                $this->gateway->setSignature($config->signature);
+                $this->gateway->setTestMode('live');
+            }
         }
         return $this->gateway;
     }
