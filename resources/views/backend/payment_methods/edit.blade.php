@@ -99,7 +99,7 @@
                         <div class="form-group">
                             <label for="user_password">User Password <small class="text-danger">Required for PayPal
                                 </small></label>
-                            <input type="text" name="user_password" value="{{ old('user_password', $paymentMethod->user_password) }}"
+                            <input type="password" name="user_password" value="{{ old('user_password', $paymentMethod->user_password) }}"
                                 class="form-control">
                             @error('user_password')
                                 <span class="text-danger">{{ $message }}</span>
@@ -174,7 +174,7 @@
                         <div class="form-group">
                             <label for="sb_user_password">User Password <small class="text-danger">Required for PayPal
                                 </small></label>
-                            <input type="text" name="sb_user_password" value="{{ old('sb_user_password', $paymentMethod->sb_user_password) }}"
+                            <input type="password" name="sb_user_password" value="{{ old('sb_user_password', $paymentMethod->sb_user_password) }}"
                                 class="form-control">
                             @error('sb_user_password')
                                 <span class="text-danger">{{ $message }}</span>
