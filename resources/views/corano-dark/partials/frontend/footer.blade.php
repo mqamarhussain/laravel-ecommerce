@@ -7,7 +7,7 @@
                         <div class="widget-item">
                             <div class="widget-title">
                                 <div class="widget-logo">
-                                    <a href="index.html">
+                                    <a href="{{route('home')}}">
                                         <img src="{{ site_logo() }}"
                                             alt="brand logo">
                                     </a>
